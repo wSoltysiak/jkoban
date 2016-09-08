@@ -11,10 +11,10 @@ public class JKoban {
     }
 
     public static void main(String[] args) {
-        Board theBoard = new Board(3,1)
-            .putPlayer(0,0)
-            .putBox(1,0)
-            .putStorage(2,0);
+        Board theBoard = new Board(3, 1)
+            .putPlayer(0, 0)
+            .putBox(1, 0)
+            .putStorage(2, 0);
         JKoban jKoban = new JKoban(theBoard);
         jKoban.drawBoard();
     }
@@ -44,7 +44,8 @@ public class JKoban {
             if (board.isBoxPosition(x, y)) {
                 hLine += "o";
                 continue;
-            }if (board.isStoragePostion(x, y)) {
+            }
+            if (board.isStoragePosition(x, y)) {
                 hLine += ".";
                 continue;
             }
@@ -61,4 +62,18 @@ public class JKoban {
         return hBorder;
     }
 
+    public void movePlayerLeft() {
+        board.putPlayer(0, 0);
+    }
+
+    public void movePlayerRight() {
+        int newX = board.getPlayer().x + 1;
+        if (newX != board.getWidth()) {
+            board.putPlayer(newX, 0);
+        }
+    }
+
+    public boolean isGameOver(Board board) {
+        return board.getBox().equals(board.getStorage());
+    }
 }

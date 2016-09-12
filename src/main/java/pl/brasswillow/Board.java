@@ -1,7 +1,6 @@
 package pl.brasswillow;
 
 public class Board {
-
     private Artifact player;
     private Artifact box;
     private Artifact storage;
@@ -64,34 +63,5 @@ public class Board {
 
     public Artifact getPlayer() {
         return player;
-    }
-
-    class Artifact {
-        int x;
-        int y;
-
-        private Artifact(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Artifact artifact = (Artifact) o;
-
-            if (x != artifact.x) return false;
-            return y == artifact.y;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = x;
-            result = 31 * result + y;
-            return result;
-        }
     }
 }

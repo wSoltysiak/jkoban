@@ -48,8 +48,10 @@ public class JKobanTest {
         //given
         Board board = new Board(2, 1);
         cut = new JKoban(board);
+
         //when
         String result = cut.getBoardString();
+
         //then
         assertThat(result).isEqualTo(EMPTY_BOARD);
     }
@@ -60,8 +62,10 @@ public class JKobanTest {
         Board board = new Board(2, 1);
         board.putPlayer(0, 0);
         cut = new JKoban(board);
+
         //when
         String result = cut.getBoardString();
+
         //then
         assertThat(result).isEqualTo(BOARD_WITH_PAYER_0_0);
     }
@@ -73,8 +77,10 @@ public class JKobanTest {
             .putPlayer(0, 0)
             .putBox(1, 0);
         cut = new JKoban(board);
+
         //when
         String result = cut.getBoardString();
+
         //then
         assertThat(result).isEqualTo(BOARD_WITH_PLAYER_0_0_BOX_1_0);
     }
@@ -85,23 +91,24 @@ public class JKobanTest {
         Board board = new Board(1, 1)
             .putStorage(0, 0);
         cut = new JKoban(board);
+
         //when
         String result = cut.getBoardString();
+
         //then
         assertThat(result).isEqualTo(BOARD_WITH_STORAGE_ONLY);
     }
-
-    //given
-    Board board = new Board(2, 1).putPlayer(1, 0);
 
     @Test
     public void shouldMovePlayerLeft() throws Exception {
         //given
         Board board = new Board(2, 1).putPlayer(1, 0);
         cut = new JKoban(board);
+
         //when
         cut.movePlayerLeft();
         String result = cut.getBoardString();
+
         //then
         assertThat(result).isEqualTo(BOARD_WITH_PAYER_0_0);
     }
@@ -111,16 +118,18 @@ public class JKobanTest {
         //given
         Board board = new Board(2, 1).putPlayer(1, 0);
         cut = new JKoban(board);
+
         //when
         cut.movePlayerLeft();
         cut.movePlayerRight();
         String result = cut.getBoardString();
+
         //then
         assertThat(result).isEqualTo(BOARD_WITH_PLAYER_1_0);
     }
 
     @Test
-    public void game_should_be_finished_when_box_is_in_storage() {
+    public void gameShouldBeFinishedWhenBoxIsInStorage() {
         // given
         Board board = new Board(1, 1)
             .putStorage(0, 0)
@@ -135,7 +144,7 @@ public class JKobanTest {
     }
 
     @Test
-    public void game_should_not_be_finished_when_box_is_not_in_storage() {
+    public void gameShouldNotBeFinishedWhenBoxIsNotInStorage() {
         // given
         Board board = new Board(2, 1)
             .putStorage(1, 0)
@@ -150,7 +159,7 @@ public class JKobanTest {
     }
 
     @Test
-    public void player_should_not_move_right_when_wall_is_on_right() {
+    public void playerShouldNotMoveRightWhenWallIsOnRight() {
         //given
         Board board = new Board (1,1)
             .putPlayer(0,0);
@@ -164,14 +173,16 @@ public class JKobanTest {
     }
 
     @Test
-    public void player_should_move_right_twice(){
+    public void playerShouldMoveRightTwice(){
         //given
         Board board = new Board(3, 1).putPlayer(0, 0);
         cut = new JKoban(board);
+
         //when
         cut.movePlayerRight();
         cut.movePlayerRight();
         String result = cut.getBoardString();
+
         //then
         assertThat(result).isEqualTo(BOARD_WITH_PLAYER_2_0);
     }

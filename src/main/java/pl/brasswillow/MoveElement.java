@@ -1,7 +1,7 @@
 package pl.brasswillow;
 
-public class Player extends BoardElement {
-    Player(int x, int y) {
+public class MoveElement extends BoardElement {
+    MoveElement(int x, int y) {
         super(x, y);
     }
 

@@ -1,8 +1,8 @@
 package pl.brasswillow;
 
 public class Board {
-    private Player player;
-    private BoardElement box;
+    private MoveElement player;
+    private MoveElement box;
     private BoardElement storage;
 
     private int width;
@@ -22,7 +22,7 @@ public class Board {
     }
 
     public Board putPlayer(int x, int y) {
-        player = new Player(x, y);
+        player = new MoveElement(x, y);
         return this;
     }
 
@@ -30,12 +30,8 @@ public class Board {
         return isEquals(x, y, player);
     }
 
-    private boolean isEquals(int x, int y, BoardElement boardElement) {
-        return new BoardElement(x, y).canEquals(boardElement);
-    }
-
     public Board putBox(int x, int y) {
-        box = new BoardElement(x, y);
+        box = new MoveElement(x, y);
         return this;
     }
 
@@ -52,6 +48,10 @@ public class Board {
         return isEquals(x, y, storage);
     }
 
+    private boolean isEquals(int x, int y, BoardElement boardElement) {
+        return new BoardElement(x, y).canEquals(boardElement);
+    }
+
     public BoardElement getBox() {
         return box;
     }
@@ -62,29 +62,105 @@ public class Board {
 
     public void movePlayerLeft() {
         int xAfterMove = player.x - 1;
-        if (xAfterMove != -1) {
-            this.player.moveLeft();
+        if (isOnBoard("x", xAfterMove)) {
+            if (isBoxPosition(xAfterMove, player.y)) {
+                movePlayerLeftWithBox();
+            } else {
+                player.moveLeft();
+            }
         }
+    }
+
+    private void movePlayerLeftWithBox() {
+        if (canMoveBoxLeft()) {
+            box.moveLeft();
+            player.moveLeft();
+        }
+    }
+
+    private boolean canMoveBoxLeft()
+    {
+        int xAfterMove = box.x - 1;
+        return isOnBoard("x", xAfterMove);
     }
 
     public void movePlayerRight() {
         int xAfterMove = player.x + 1;
-        if (xAfterMove != this.width) {
-            this.player.moveRight();
+        if (isOnBoard("x", xAfterMove)) {
+            if (isBoxPosition(xAfterMove, player.y)) {
+                movePlayerRightWithBox();
+            } else {
+                player.moveRight();
+            }
         }
+    }
+
+    private void movePlayerRightWithBox() {
+        if (canMoveBoxRight()) {
+            box.moveRight();
+            player.moveRight();
+        }
+    }
+
+    private boolean canMoveBoxRight() {
+        int xAfterMove = box.x + 1;
+        return isOnBoard("x", xAfterMove);
     }
 
     public void movePlayerUp() {
         int yAfterMove = player.y - 1;
-        if (yAfterMove != -1) {
-            this.player.moveUp();
+        if (isOnBoard("y", yAfterMove)) {
+            if (isBoxPosition(player.x, yAfterMove)) {
+                movePlayerUpWithBox();
+            } else {
+                player.moveUp();
+            }
         }
+    }
+
+    private void movePlayerUpWithBox() {
+        if (canMoveBoxUp()) {
+            box.moveUp();
+            player.moveUp();
+        }
+    }
+
+    private boolean canMoveBoxUp() {
+        int yAfterMove = box.y - 1;
+        return isOnBoard("y", yAfterMove);
     }
 
     public void movePlayerDown() {
         int yAfterMove = player.y + 1;
         if (yAfterMove != this.height) {
-            this.player.moveDown();
+            if (isBoxPosition(player.x, yAfterMove)) {
+                movePlayerDownWithBox();
+            } else {
+                player.moveDown();
+            }
         }
+    }
+
+    private void movePlayerDownWithBox() {
+        if (canMoveBoxDown()) {
+            box.moveDown();
+            player.moveDown();
+        }
+    }
+
+    private boolean canMoveBoxDown() {
+        int yAfterMove = box.y + 1;
+        return isOnBoard("y", yAfterMove);
+    }
+
+    private boolean isOnBoard(String axis, int value)
+    {
+        if (axis.equals("x"))
+        {
+            return value > -1 && value < width;
+        } else if (axis.equals("y")) {
+            return value > -1 && value < height;
+        }
+        return false;
     }
 }

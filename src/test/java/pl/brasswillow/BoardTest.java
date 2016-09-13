@@ -155,4 +155,124 @@ public class BoardTest {
         // then
         assertThat(board.isPlayerPosition(0, 1)).isTrue();
     }
+
+    @Test
+    public void playerShouldMoveBoxInLeft() {
+        // given
+        Board board = new Board(3, 1)
+                .putPlayer(2, 0)
+                .putBox(1, 0);
+
+        // when
+        board.movePlayerLeft();
+
+        // then
+        assertThat(board.isPlayerPosition(1, 0)).isTrue();
+        assertThat(board.isBoxPosition(0, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveBoxInLeftWhenIsWallAfterBox() {
+        // given
+        Board board = new Board(2, 1)
+                .putPlayer(1, 0)
+                .putBox(0, 0);
+
+        // when
+        board.movePlayerLeft();
+
+        // then
+        assertThat(board.isPlayerPosition(1, 0)).isTrue();
+        assertThat(board.isBoxPosition(0, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldMoveBoxInRight() {
+        // given
+        Board board = new Board(3, 1)
+                .putPlayer(0, 0)
+                .putBox(1, 0);
+
+        // when
+        board.movePlayerRight();
+
+        // then
+        assertThat(board.isPlayerPosition(1, 0)).isTrue();
+        assertThat(board.isBoxPosition(2, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveBoxInRightWhenIsWallAfterBox() {
+        // given
+        Board board = new Board(2, 1)
+                .putPlayer(0, 0)
+                .putBox(1, 0);
+
+        // when
+        board.movePlayerRight();
+
+        // then
+        assertThat(board.isPlayerPosition(0, 0)).isTrue();
+        assertThat(board.isBoxPosition(1, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldMoveBoxInUp() {
+        // given
+        Board board = new Board(1, 3)
+                .putPlayer(0, 2)
+                .putBox(0, 1);
+
+        // when
+        board.movePlayerUp();
+
+        // then
+        assertThat(board.isPlayerPosition(0, 1)).isTrue();
+        assertThat(board.isBoxPosition(0, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveBoxInUpWhenIsWallAfterBox() {
+        // given
+        Board board = new Board(1, 2)
+                .putPlayer(0, 1)
+                .putBox(0, 0);
+
+        // when
+        board.movePlayerUp();
+
+        // then
+        assertThat(board.isPlayerPosition(0, 1)).isTrue();
+        assertThat(board.isBoxPosition(0, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldMoveBoxInDown() {
+        // given
+        Board board = new Board(1, 3)
+                .putPlayer(0, 0)
+                .putBox(0, 1);
+
+        // when
+        board.movePlayerDown();
+
+        // then
+        assertThat(board.isPlayerPosition(0, 1)).isTrue();
+        assertThat(board.isBoxPosition(0, 2)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveBoxInDownWhenIsWallAfterBox() {
+        // given
+        Board board = new Board(1, 2)
+                .putPlayer(0, 0)
+                .putBox(0, 1);
+
+        // when
+        board.movePlayerDown();
+
+        // then
+        assertThat(board.isPlayerPosition(0, 0)).isTrue();
+        assertThat(board.isBoxPosition(0, 1)).isTrue();
+    }
 }

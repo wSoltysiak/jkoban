@@ -23,6 +23,6 @@ public class JKoban {
     }
 
     boolean isGameOver() {
-        return board.getBoxes().canEquals(board.getStorage());
+        return board.getBoxes().canEquals(board.getStorages());
     }
 }

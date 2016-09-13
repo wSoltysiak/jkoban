@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Board {
     private MoveElement player;
     private ArrayList<MoveElement> boxes;
-    private BoardElement storage;
+    private ArrayList<BoardElement> storages;
 
     private int width;
     private int height;
@@ -23,6 +23,7 @@ public class Board {
         this.height = height;
 
         boxes = new ArrayList<>();
+        storages = new ArrayList<>();
     }
 
     public Board putPlayer(int x, int y) {
@@ -31,7 +32,7 @@ public class Board {
     }
 
     public boolean isPlayerPosition(int x, int y) {
-        return isEquals(x, y, player);
+        return canEquals(x, y, player);
     }
 
     public Board putBox(int x, int y) {
@@ -41,7 +42,7 @@ public class Board {
 
     public boolean isBoxPosition(int x, int y) {
         for (MoveElement box : boxes) {
-            if (isEquals(x, y, box)) {
+            if (canEquals(x, y, box)) {
                 return true;
             }
         }
@@ -50,24 +51,28 @@ public class Board {
 
     public MoveElement getBoxByPosition(int x, int y) {
         for (MoveElement box : boxes) {
-            if (isEquals(x, y, box)) {
+            if (canEquals(x, y, box)) {
                 return box;
             }
         }
-
         return new MoveElement(0, 0);
     }
 
     public Board putStorage(int x, int y) {
-        storage = new BoardElement(x, y);
+        storages.add(new BoardElement(x, y));
         return this;
     }
 
     public boolean isStoragePosition(int x, int y) {
-        return isEquals(x, y, storage);
+        for (BoardElement storage : storages) {
+            if (canEquals(x, y, storage)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    private boolean isEquals(int x, int y, BoardElement boardElement) {
+    private boolean canEquals(int x, int y, BoardElement boardElement) {
         return new BoardElement(x, y).canEquals(boardElement);
     }
 
@@ -75,8 +80,8 @@ public class Board {
         return boxes.get(0);
     }
 
-    public BoardElement getStorage() {
-        return storage;
+    public BoardElement getStorages() {
+        return storages.get(0);
     }
 
     public void movePlayerLeft() {

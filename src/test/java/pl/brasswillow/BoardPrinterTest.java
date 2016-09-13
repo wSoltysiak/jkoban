@@ -29,6 +29,18 @@ public class BoardPrinterTest {
                     "#.#\n" +
                     "###";
 
+    private static final String BOARD_WITH_TWO_BOXES =
+            "" +
+                    "####\n" +
+                    "#oo#\n" +
+                    "####";
+
+    private static final String BOARD_WITH_TWO_STORAGES =
+            "" +
+                    "####\n" +
+                    "#..#\n" +
+                    "####";
+
     private BoardPrinter cut;
 
     @Test
@@ -85,5 +97,35 @@ public class BoardPrinterTest {
 
         // then
         assertThat(boardResult).isEqualTo(BOARD_WITH_STORAGE_ONLY);
+    }
+
+    @Test
+    public void shouldPrintBoardWithTwoBoxes() {
+        // given
+        Board board = new Board(2, 1)
+                .putBox(0, 0)
+                .putBox(1, 0);
+        cut = new BoardPrinter();
+
+        // when
+        String boardResult = cut.getBoardString(board);
+
+        // then
+        assertThat(boardResult).isEqualTo(BOARD_WITH_TWO_BOXES);
+    }
+
+    @Test
+    public void shouldPrintBoardWithTwoStorages() {
+        // given
+        Board board = new Board(2, 1)
+                .putStorage(0, 0)
+                .putStorage(1, 0);
+        cut = new BoardPrinter();
+
+        // when
+        String boardResult = cut.getBoardString(board);
+
+        // then
+        assertThat(boardResult).isEqualTo(BOARD_WITH_TWO_STORAGES);
     }
 }

@@ -62,35 +62,7 @@ public class JKoban {
         return hBorder;
     }
 
-    public void movePlayerLeft() {
-        int newX = board.getPlayer().x - 1;
-        if (newX != -1) {
-            board.putPlayer(newX, board.getPlayer().y);
-        }
-    }
-
-    public void movePlayerRight() {
-        int newX = board.getPlayer().x + 1;
-        if (newX != board.getWidth()) {
-            board.putPlayer(newX, board.getPlayer().y);
-        }
-    }
-
-    public void movePlayerUp() {
-        int newY = board.getPlayer().y - 1;
-        if (newY != -1) {
-            board.putPlayer(board.getPlayer().x, newY);
-        }
-    }
-
-    public void movePlayerDown() {
-        int newY = board.getPlayer().y + 1;
-        if (newY != board.getHeight()) {
-            board.putPlayer(board.getPlayer().x, newY);
-        }
-    }
-
     public boolean isGameOver(Board board) {
-        return board.getBox().equals(board.getStorage());
+        return board.getBox().canEquals(board.getStorage());
     }
 }

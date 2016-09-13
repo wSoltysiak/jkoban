@@ -108,7 +108,7 @@ public class JKobanTest {
         cut = new JKoban(board);
 
         // when
-        boolean gameOver = cut.isGameOver(board);
+        boolean gameOver = cut.isGameOver();
 
         // then
         assertThat(gameOver).isTrue();
@@ -123,7 +123,7 @@ public class JKobanTest {
         cut = new JKoban(board);
 
         // when
-        boolean gameOver = cut.isGameOver(board);
+        boolean gameOver = cut.isGameOver();
 
         // then
         assertThat(gameOver).isFalse();

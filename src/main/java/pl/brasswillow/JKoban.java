@@ -62,7 +62,7 @@ public class JKoban {
         return hBorder;
     }
 
-    public boolean isGameOver(Board board) {
+    public boolean isGameOver() {
         return board.getBox().canEquals(board.getStorage());
     }
 }

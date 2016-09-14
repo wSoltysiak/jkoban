@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class JKoban {
     private Board board;
     private BoardPrinter printer;
+    private CommandProcessor commandProcessor;
 
     public JKoban(Board board) {
         this.board = board;
         this.printer = new BoardPrinter();
+        this.commandProcessor = new CommandProcessor();
     }
 
     public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class JKoban {
         jKoban.printBoard();
     }
 
-    void printBoard() {
+    private void printBoard() {
         System.out.println(printer.getBoardString(board));
     }
 

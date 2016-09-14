@@ -345,4 +345,23 @@ public class BoardTest {
         assertThat(cut.isBoxPosition(0, 1)).isTrue();
         assertThat(cut.isBoxPosition(0, 2)).isTrue();
     }
+
+    @Test
+    public void boardShouldReset() {
+        // given
+        cut = new Board(0, 3)
+                .putPlayer(0, 0)
+                .putBox(0, 1)
+                .putStorage(0, 2);
+        cut.saveCleanState();
+
+        // when
+        cut.movePlayerDown();
+        cut.resetBoard();
+
+        // then
+        assertThat(cut.isPlayerPosition(0, 0)).isTrue();
+        assertThat(cut.isBoxPosition(0, 1)).isTrue();
+        assertThat(cut.isStoragePosition(0, 2)).isTrue();
+    }
 }

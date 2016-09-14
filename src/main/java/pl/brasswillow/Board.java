@@ -10,6 +10,8 @@ public class Board {
     private int width;
     private int height;
 
+    private Board cleanState;
+
     public int getWidth() {
         return width;
     }
@@ -22,10 +24,19 @@ public class Board {
         return boxes;
     }
 
+    public ArrayList<BoardElement> getStorages() {
+        return storages;
+    }
+
+    public MoveElement getPlayer() {
+        return player;
+    }
+
     public Board(int width, int height) {
         this.width = width;
         this.height = height;
 
+        player = new MoveElement(-1, -1);
         boxes = new ArrayList<>();
         storages = new ArrayList<>();
     }
@@ -186,5 +197,36 @@ public class Board {
             return value > -1 && value < height;
         }
         return false;
+    }
+
+    public void saveCleanState() {
+        try {
+            cleanState = (Board)this.clone();
+        } catch (CloneNotSupportedException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Board cloneBoard = new Board(width, height);
+
+        for (MoveElement box : boxes) {
+            cloneBoard.putBox(box.x, box.y);
+        }
+
+        for (BoardElement storage : storages) {
+            cloneBoard.putStorage(storage.x, storage.y);
+        }
+
+        cloneBoard.putPlayer(player.x, player.y);
+
+        return cloneBoard;
+    }
+
+    public void resetBoard() {
+        boxes = cleanState.getBoxes();
+        storages = cleanState.getStorages();
+        player = cleanState.getPlayer();
     }
 }

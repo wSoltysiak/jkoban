@@ -18,6 +18,7 @@ public class JKoban {
                 .putPlayer(0, 0)
                 .putBox(1, 0)
                 .putStorage(2, 0);
+        board.saveCleanState();
         JKoban jKoban = new JKoban(board);
         jKoban.printBoard();
     }

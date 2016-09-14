@@ -17,6 +17,7 @@ public class CommandProcessor {
         methods.put("right", () -> board.movePlayerRight());
         methods.put("up", () -> board.movePlayerUp());
         methods.put("down", () -> board.movePlayerDown());
+        methods.put("reset", () -> board.resetBoard());
     }
 
     public void process(String command) {

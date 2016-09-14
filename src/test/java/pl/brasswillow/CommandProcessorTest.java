@@ -62,4 +62,43 @@ public class CommandProcessorTest {
         // then
         assertThat(board.isPlayerPosition(0, 1)).isTrue();
     }
+
+    @Test
+    public void boardShouldReset() {
+        // given
+        Board board = new Board(0, 3)
+                .putPlayer(0, 0)
+                .putBox(0, 1)
+                .putStorage(0, 2);
+        board.saveCleanState();
+        cut = new CommandProcessor(board);
+
+        // when
+        cut.process("down");
+        cut.process("reset");
+
+        // then
+        assertThat(board.isPlayerPosition(0, 0)).isTrue();
+        assertThat(board.isBoxPosition(0, 1)).isTrue();
+        assertThat(board.isStoragePosition(0, 2)).isTrue();
+    }
+
+    @Test
+    public void boardShouldNotReset() {
+        // given
+        Board board = new Board(0, 3)
+                .putPlayer(0, 0)
+                .putBox(0, 1)
+                .putStorage(0, 2);
+        board.saveCleanState();
+        cut = new CommandProcessor(board);
+
+        // when
+        cut.process("down");
+
+        // then
+        assertThat(board.isPlayerPosition(0, 1)).isTrue();
+        assertThat(board.isBoxPosition(0, 2)).isTrue();
+        assertThat(board.isStoragePosition(0, 2)).isTrue();
+    }
 }

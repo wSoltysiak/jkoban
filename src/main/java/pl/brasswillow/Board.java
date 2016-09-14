@@ -18,6 +18,10 @@ public class Board {
         return height;
     }
 
+    public ArrayList<MoveElement> getBoxes() {
+        return boxes;
+    }
+
     public Board(int width, int height) {
         this.width = width;
         this.height = height;
@@ -74,14 +78,6 @@ public class Board {
 
     private boolean canEquals(int x, int y, BoardElement boardElement) {
         return new BoardElement(x, y).canEquals(boardElement);
-    }
-
-    public MoveElement getBoxes() {
-        return boxes.get(0);
-    }
-
-    public BoardElement getStorages() {
-        return storages.get(0);
     }
 
     public void movePlayerLeft() {

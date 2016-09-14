@@ -1,5 +1,7 @@
 package pl.brasswillow;
 
+import java.util.ArrayList;
+
 public class JKoban {
     private Board board;
     private BoardPrinter printer;
@@ -23,6 +25,12 @@ public class JKoban {
     }
 
     boolean isGameOver() {
-        return board.getBoxes().canEquals(board.getStorages());
+        ArrayList<MoveElement> boxes = board.getBoxes();
+        for (BoardElement box : boxes) {
+            if (!board.isStoragePosition(box.x, box.y)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

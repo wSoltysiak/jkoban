@@ -12,10 +12,10 @@ public class CommandProcessorTest {
         // given
         Board board = new Board(2, 1)
                 .putPlayer(1, 0);
-        cut = new CommandProcessor();
+        cut = new CommandProcessor(board);
 
         // when
-        cut.process(board, "move left");
+        cut.process("left");
 
         // then
         assertThat(board.isPlayerPosition(0, 0)).isTrue();
@@ -26,10 +26,10 @@ public class CommandProcessorTest {
         // given
         Board board = new Board(2, 1)
                 .putPlayer(0, 0);
-        cut = new CommandProcessor();
+        cut = new CommandProcessor(board);
 
         // when
-        cut.process(board, "move right");
+        cut.process("right");
 
         // then
         assertThat(board.isPlayerPosition(1, 0)).isTrue();
@@ -40,10 +40,10 @@ public class CommandProcessorTest {
         // given
         Board board = new Board(1, 2)
                 .putPlayer(0, 1);
-        cut = new CommandProcessor();
+        cut = new CommandProcessor(board);
 
         // when
-        cut.process(board, "move up");
+        cut.process("up");
 
         // then
         assertThat(board.isPlayerPosition(0, 0)).isTrue();
@@ -54,10 +54,10 @@ public class CommandProcessorTest {
         // given
         Board board = new Board(1, 2)
                 .putPlayer(0, 0);
-        cut = new CommandProcessor();
+        cut = new CommandProcessor(board);
 
         // when
-        cut.process(board, "move down");
+        cut.process("down");
 
         // then
         assertThat(board.isPlayerPosition(0, 1)).isTrue();

@@ -10,7 +10,7 @@ public class JKoban {
     public JKoban(Board board) {
         this.board = board;
         this.printer = new BoardPrinter();
-        this.commandProcessor = new CommandProcessor();
+        this.commandProcessor = new CommandProcessor(board);
     }
 
     public static void main(String[] args) {

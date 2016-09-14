@@ -9,7 +9,7 @@ public class JKoban {
 
     public JKoban(Board board) {
         this.board = board;
-        this.printer = new BoardPrinter();
+        this.printer = new BoardPrinter(board);
         this.commandProcessor = new CommandProcessor(board);
     }
 
@@ -23,7 +23,7 @@ public class JKoban {
     }
 
     private void printBoard() {
-        System.out.println(printer.getBoardString(board));
+        System.out.println(printer.getBoardString());
     }
 
     boolean isGameOver() {

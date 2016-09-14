@@ -11,7 +11,7 @@ public class BoardPrinterTest {
                     "#  #\n" +
                     "####";
 
-    private static final String BOARD_WITH_PAYER_0_0 =
+    private static final String BOARD_WITH_PLAYER_0_0 =
             "" +
                     "####\n" +
                     "#@ #\n" +
@@ -47,10 +47,10 @@ public class BoardPrinterTest {
     public void shouldPrintEmptyBoard() {
         // given
         Board board = new Board(2,1);
-        cut = new BoardPrinter();
+        cut = new BoardPrinter(board);
 
         // when
-        String boardResult = cut.getBoardString(board);
+        String boardResult = cut.getBoardString();
 
         // then
         assertThat(boardResult).isEqualTo(EMPTY_BOARD);
@@ -61,13 +61,13 @@ public class BoardPrinterTest {
         // given
         Board board = new Board(2, 1)
                 .putPlayer(0, 0);
-        cut = new BoardPrinter();
+        cut = new BoardPrinter(board);
 
         // when
-        String boardResult = cut.getBoardString(board);
+        String boardResult = cut.getBoardString();
 
         // then
-        assertThat(boardResult).isEqualTo(BOARD_WITH_PAYER_0_0);
+        assertThat(boardResult).isEqualTo(BOARD_WITH_PLAYER_0_0);
     }
 
     @Test
@@ -76,10 +76,10 @@ public class BoardPrinterTest {
         Board board = new Board(2, 1)
                 .putPlayer(0, 0)
                 .putBox(1, 0);
-        cut = new BoardPrinter();
+        cut = new BoardPrinter(board);
 
         // when
-        String boardResult = cut.getBoardString(board);
+        String boardResult = cut.getBoardString();
 
         // then
         assertThat(boardResult).isEqualTo(BOARD_WITH_PLAYER_0_0_BOX_1_0);
@@ -90,10 +90,10 @@ public class BoardPrinterTest {
         // given
         Board board = new Board(1, 1)
                 .putStorage(0, 0);
-        cut = new BoardPrinter();
+        cut = new BoardPrinter(board);
 
         // when
-        String boardResult = cut.getBoardString(board);
+        String boardResult = cut.getBoardString();
 
         // then
         assertThat(boardResult).isEqualTo(BOARD_WITH_STORAGE_ONLY);
@@ -105,10 +105,10 @@ public class BoardPrinterTest {
         Board board = new Board(2, 1)
                 .putBox(0, 0)
                 .putBox(1, 0);
-        cut = new BoardPrinter();
+        cut = new BoardPrinter(board);
 
         // when
-        String boardResult = cut.getBoardString(board);
+        String boardResult = cut.getBoardString();
 
         // then
         assertThat(boardResult).isEqualTo(BOARD_WITH_TWO_BOXES);
@@ -120,12 +120,28 @@ public class BoardPrinterTest {
         Board board = new Board(2, 1)
                 .putStorage(0, 0)
                 .putStorage(1, 0);
-        cut = new BoardPrinter();
+        cut = new BoardPrinter(board);
 
         // when
-        String boardResult = cut.getBoardString(board);
+        String boardResult = cut.getBoardString();
 
         // then
         assertThat(boardResult).isEqualTo(BOARD_WITH_TWO_STORAGES);
+    }
+
+    @Test
+    public void shouldPrintBoardWithPlayerOn_0_0_AfterMoveLeft() {
+        // given
+        Board board = new Board(2, 1)
+                .putPlayer(1, 0);
+        cut = new BoardPrinter(board);
+        CommandProcessor commandProcessor = new CommandProcessor(board);
+
+        // when
+        commandProcessor.process("left");
+        String boardResult = cut.getBoardString();
+
+        // then
+        assertThat(boardResult).isEqualTo(BOARD_WITH_PLAYER_0_0);
     }
 }

@@ -6,9 +6,11 @@ import java.util.StringJoiner;
 public class BoardPrinter {
     private Board board;
 
-    public String getBoardString(Board board) {
+    BoardPrinter(Board board) {
         this.board = board;
+    }
 
+    public String getBoardString() {
         StringJoiner sj = new StringJoiner("\n");
         sj.add(getHorizontalBorder());
         for (int y = 0; y < board.getHeight(); y++) {

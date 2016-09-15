@@ -176,17 +176,11 @@ public class Board {
     }
 
     private boolean canMove(int xAfterMove, int yAfterMove) {
-        return isOnBoard("x", xAfterMove) && isOnBoard("y", yAfterMove)
-                && !isWallPosition(xAfterMove, yAfterMove) && !isBoxPosition(xAfterMove, yAfterMove);
+        return isOnBoard(xAfterMove, yAfterMove) && !isWallPosition(xAfterMove, yAfterMove) && !isBoxPosition(xAfterMove, yAfterMove);
     }
 
-    private boolean isOnBoard(String axis, int value) {
-        if (axis.equals("x")) {
-            return value > -1 && value < width;
-        } else if (axis.equals("y")) {
-            return value > -1 && value < height;
-        }
-        return false;
+    private boolean isOnBoard(int x, int y) {
+        return (x > -1 && x < width) && (y > -1 && y < height);
     }
 
     public void saveCleanState() {

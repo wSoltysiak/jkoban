@@ -47,6 +47,12 @@ public class BoardPrinterTest {
                     "#*#\n" +
                     "###";
 
+    private static final String BOARD_WITH_WALL_ONLY =
+            "" +
+                    "###\n" +
+                    "###\n" +
+                    "###";
+
     private BoardPrinter cut;
 
     @Test
@@ -164,5 +170,19 @@ public class BoardPrinterTest {
 
         // then
         assertThat(boardResult).isEqualTo(BOARD_WITH_DONE_BOX_0_0);
+    }
+
+    @Test
+    public void shouldPrintBoardWithWallOnly() {
+        // given
+        Board board = new Board(1, 1)
+                .putWall(0, 0);
+        cut = new BoardPrinter(board);
+
+        // when
+        String boardResult = cut.getBoardString();
+
+        // then
+        assertThat(boardResult).isEqualTo(BOARD_WITH_WALL_ONLY);
     }
 }

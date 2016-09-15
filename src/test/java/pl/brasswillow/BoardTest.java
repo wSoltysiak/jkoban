@@ -492,4 +492,20 @@ public class BoardTest {
         assertThat(cut.isBoxPosition(0, 1)).isTrue();
         assertThat(cut.isWallPosition(0, 2)).isTrue();
     }
+
+    @Test
+    public void playerShouldMoveBoxWhenStorageAfterBox() {
+        // given
+        cut = new Board(3, 1)
+                .putPlayer(0, 0)
+                .putBox(1, 0)
+                .putStorage(2, 0);
+
+        // when
+        cut.movePlayerRight();
+
+        // then
+        assertThat(cut.isPlayerPosition(1, 0)).isTrue();
+        assertThat(cut.isBoxPosition(2, 0)).isTrue();
+    }
 }

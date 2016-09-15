@@ -66,10 +66,11 @@ public class CommandProcessorTest {
     @Test
     public void boardShouldReset() {
         // given
-        Board board = new Board(1, 3)
+        Board board = new Board(1, 5)
                 .putPlayer(0, 0)
                 .putBox(0, 1)
-                .putStorage(0, 2);
+                .putStorage(0, 2)
+                .putWall(0, 4);
         board.saveCleanState();
         cut = new CommandProcessor(board);
 
@@ -81,15 +82,17 @@ public class CommandProcessorTest {
         assertThat(board.isPlayerPosition(0, 0)).isTrue();
         assertThat(board.isBoxPosition(0, 1)).isTrue();
         assertThat(board.isStoragePosition(0, 2)).isTrue();
+        assertThat(board.isWallPosition(0, 4)).isTrue();
     }
 
     @Test
     public void boardShouldNotReset() {
         // given
-        Board board = new Board(1, 3)
+        Board board = new Board(1, 5)
                 .putPlayer(0, 0)
                 .putBox(0, 1)
-                .putStorage(0, 2);
+                .putStorage(0, 2)
+                .putWall(0, 4);
         board.saveCleanState();
         cut = new CommandProcessor(board);
 
@@ -100,5 +103,6 @@ public class CommandProcessorTest {
         assertThat(board.isPlayerPosition(0, 1)).isTrue();
         assertThat(board.isBoxPosition(0, 2)).isTrue();
         assertThat(board.isStoragePosition(0, 2)).isTrue();
+        assertThat(board.isWallPosition(0, 4)).isTrue();
     }
 }

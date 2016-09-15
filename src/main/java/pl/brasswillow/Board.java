@@ -199,10 +199,6 @@ public class Board {
             cloneBoard.putBox(box.x, box.y);
         }
 
-        for (BoardElement storage : storages) {
-            cloneBoard.putStorage(storage.x, storage.y);
-        }
-
         cloneBoard.putPlayer(player.x, player.y);
 
         return cloneBoard;
@@ -210,7 +206,6 @@ public class Board {
 
     public void resetBoard() {
         boxes = cleanState.getBoxes();
-        storages = cleanState.getStorages();
         player = cleanState.getPlayer();
     }
 }

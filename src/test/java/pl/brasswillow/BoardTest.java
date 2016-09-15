@@ -21,7 +21,7 @@ public class BoardTest {
     }
 
     @Test
-    public void playerShouldNotMoveLeftWhenWallOnLeft() {
+    public void playerShouldNotMoveLeftWhenWallBoardOnLeft() {
         // given
         cut = new Board(1, 1)
                 .putPlayer(0, 0);
@@ -47,7 +47,7 @@ public class BoardTest {
     }
 
     @Test
-    public void playerShouldNotMoveRightWhenWallIsOnRight() {
+    public void playerShouldNotMoveRightWhenWallBoardIsOnRight() {
         // given
         cut = new Board(1, 1)
                 .putPlayer(0, 0);
@@ -73,7 +73,7 @@ public class BoardTest {
     }
 
     @Test
-    public void playerShouldNotMoveUpWhenWallIsOnUp() {
+    public void playerShouldNotMoveUpWhenWallBoardIsOnUp() {
         // given
         cut = new Board(1, 1)
                 .putPlayer(0, 0);
@@ -99,7 +99,7 @@ public class BoardTest {
     }
 
     @Test
-    public void playerShouldNotMoveDownWhenWallIsOnDown() {
+    public void playerShouldNotMoveDownWhenWallBoardIsOnDown() {
         // given
         cut = new Board(1, 1)
                 .putPlayer(0, 0);
@@ -174,7 +174,7 @@ public class BoardTest {
     }
 
     @Test
-    public void playerShouldNotMoveBoxInLeftWhenIsWallAfterBox() {
+    public void playerShouldNotMoveBoxInLeftWhenIsWallBoardAfterBox() {
         // given
         cut = new Board(2, 1)
                 .putPlayer(1, 0)
@@ -204,7 +204,7 @@ public class BoardTest {
     }
 
     @Test
-    public void playerShouldNotMoveBoxInRightWhenIsWallAfterBox() {
+    public void playerShouldNotMoveBoxInRightWhenIsWallBoardAfterBox() {
         // given
         cut = new Board(2, 1)
                 .putPlayer(0, 0)
@@ -234,7 +234,7 @@ public class BoardTest {
     }
 
     @Test
-    public void playerShouldNotMoveBoxInUpWhenIsWallAfterBox() {
+    public void playerShouldNotMoveBoxInUpWhenIsWallBoardAfterBox() {
         // given
         cut = new Board(1, 2)
                 .putPlayer(0, 1)
@@ -264,7 +264,7 @@ public class BoardTest {
     }
 
     @Test
-    public void playerShouldNotMoveBoxInDownWhenIsWallAfterBox() {
+    public void playerShouldNotMoveBoxInDownWhenIsWallBoardAfterBox() {
         // given
         cut = new Board(1, 2)
                 .putPlayer(0, 0)
@@ -363,5 +363,133 @@ public class BoardTest {
         assertThat(cut.isPlayerPosition(0, 0)).isTrue();
         assertThat(cut.isBoxPosition(0, 1)).isTrue();
         assertThat(cut.isStoragePosition(0, 2)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveLeftWhenWallOnLeft() {
+        // given
+        cut = new Board(2, 0)
+                .putPlayer(1, 0)
+                .putWall(0, 0);
+
+        // when
+        cut.movePlayerLeft();
+
+        // then
+        assertThat(cut.isPlayerPosition(1, 0)).isTrue();
+        assertThat(cut.isWallPosition(0, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveLeftWithBoxWhenWallAfterBox() {
+        // given
+        cut = new Board(3, 0)
+                .putPlayer(2, 0)
+                .putBox(1, 0)
+                .putWall(0, 0);
+
+        // when
+        cut.movePlayerLeft();
+
+        // then
+        assertThat(cut.isPlayerPosition(2, 0)).isTrue();
+        assertThat(cut.isBoxPosition(1, 0)).isTrue();
+        assertThat(cut.isWallPosition(0, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveRightWhenWallOnRight() {
+        // given
+        cut = new Board(2, 0)
+                .putPlayer(0, 0)
+                .putWall(1, 0);
+
+        // when
+        cut.movePlayerRight();
+
+        // then
+        assertThat(cut.isPlayerPosition(0, 0)).isTrue();
+        assertThat(cut.isWallPosition(1, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveRightWithBoxWhenWallAfterBox() {
+        // given
+        cut = new Board(3, 0)
+                .putPlayer(0, 0)
+                .putBox(1, 0)
+                .putWall(2, 0);
+
+        // when
+        cut.movePlayerRight();
+
+        // then
+        assertThat(cut.isPlayerPosition(0, 0)).isTrue();
+        assertThat(cut.isBoxPosition(1, 0)).isTrue();
+        assertThat(cut.isWallPosition(2, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveUpWhenWallUp() {
+        // given
+        cut = new Board(0, 2)
+                .putPlayer(0, 1)
+                .putWall(0, 0);
+
+        // when
+        cut.movePlayerUp();
+
+        // then
+        assertThat(cut.isPlayerPosition(0, 1)).isTrue();
+        assertThat(cut.isWallPosition(0, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveUpWithBoxWhenWallAfterBox() {
+        // given
+        cut = new Board(0, 3)
+                .putPlayer(0, 2)
+                .putBox(0, 1)
+                .putWall(0, 0);
+
+        // when
+        cut.movePlayerUp();
+
+        // then
+        assertThat(cut.isPlayerPosition(0, 2)).isTrue();
+        assertThat(cut.isBoxPosition(0, 1)).isTrue();
+        assertThat(cut.isWallPosition(0, 0)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveDownWhenWallDown() {
+        // given
+        cut = new Board(0, 2)
+                .putPlayer(0, 0)
+                .putWall(0, 1);
+
+        // when
+        cut.movePlayerDown();
+
+        // then
+        assertThat(cut.isPlayerPosition(0, 0)).isTrue();
+        assertThat(cut.isWallPosition(0, 1)).isTrue();
+    }
+
+    @Test
+    public void playerShouldNotMoveDownWithBoxWhenWallAfterBox() {
+        // given
+        cut = new Board(0, 3)
+                .putPlayer(0, 0)
+                .putBox(0, 1)
+                .putWall(0, 2);
+
+        // when
+        cut.movePlayerDown();
+
+        // then
+        assertThat(cut.isPlayerPosition(0, 0)).isTrue();
+        assertThat(cut.isBoxPosition(0, 1)).isTrue();
+        assertThat(cut.isWallPosition(0, 2)).isTrue();
     }
 }

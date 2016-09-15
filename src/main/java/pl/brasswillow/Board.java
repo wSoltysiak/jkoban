@@ -6,6 +6,7 @@ public class Board {
     private MoveElement player;
     private ArrayList<MoveElement> boxes;
     private ArrayList<BoardElement> storages;
+    private ArrayList<BoardElement> walls;
 
     private int width;
     private int height;
@@ -32,6 +33,10 @@ public class Board {
         return player;
     }
 
+    public ArrayList<BoardElement> getWalls() {
+        return walls;
+    }
+
     public Board(int width, int height) {
         this.width = width;
         this.height = height;
@@ -39,6 +44,7 @@ public class Board {
         player = new MoveElement(-1, -1);
         boxes = new ArrayList<>();
         storages = new ArrayList<>();
+        walls = new ArrayList<>();
     }
 
     public Board putPlayer(int x, int y) {
@@ -87,6 +93,20 @@ public class Board {
         return false;
     }
 
+    public Board putWall(int x, int y) {
+        walls.add(new BoardElement(x, y));
+        return this;
+    }
+
+    public boolean isWallPosition(int x, int y) {
+        for (BoardElement wall : walls) {
+            if (canEquals(x, y, wall)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean canEquals(int x, int y, BoardElement boardElement) {
         return new BoardElement(x, y).canEquals(boardElement);
     }
@@ -97,7 +117,7 @@ public class Board {
             if (isBoxPosition(xAfterMove, player.y)) {
                 MoveElement nearbyBox = getBoxByPosition(xAfterMove, player.y);
                 movePlayerLeftWithBox(nearbyBox);
-            } else {
+            } else if (!isWallPosition(xAfterMove, player.y)) {
                 player.moveLeft();
             }
         }
@@ -110,10 +130,9 @@ public class Board {
         }
     }
 
-    private boolean canMoveBoxLeft(MoveElement nearbyBox)
-    {
+    private boolean canMoveBoxLeft(MoveElement nearbyBox) {
         int xAfterMove = nearbyBox.x - 1;
-        return isOnBoard("x", xAfterMove) && !isBoxPosition(xAfterMove, nearbyBox.y);
+        return isOnBoard("x", xAfterMove) && !isBoxPosition(xAfterMove, nearbyBox.y) && !isWallPosition(xAfterMove, nearbyBox.y);
     }
 
     public void movePlayerRight() {
@@ -122,7 +141,7 @@ public class Board {
             if (isBoxPosition(xAfterMove, player.y)) {
                 MoveElement nearbyBox = getBoxByPosition(xAfterMove, player.y);
                 movePlayerRightWithBox(nearbyBox);
-            } else {
+            } else if (!isWallPosition(xAfterMove, player.y)){
                 player.moveRight();
             }
         }
@@ -137,7 +156,7 @@ public class Board {
 
     private boolean canMoveBoxRight(MoveElement nearbyBox) {
         int xAfterMove = nearbyBox.x + 1;
-        return isOnBoard("x", xAfterMove) && !isBoxPosition(xAfterMove, nearbyBox.y);
+        return isOnBoard("x", xAfterMove) && !isBoxPosition(xAfterMove, nearbyBox.y) && !isWallPosition(xAfterMove, nearbyBox.y);
     }
 
     public void movePlayerUp() {
@@ -146,7 +165,7 @@ public class Board {
             if (isBoxPosition(player.x, yAfterMove)) {
                 MoveElement nearbyBox = getBoxByPosition(player.x, yAfterMove);
                 movePlayerUpWithBox(nearbyBox);
-            } else {
+            } else if (!isWallPosition(player.x, yAfterMove)) {
                 player.moveUp();
             }
         }
@@ -161,7 +180,7 @@ public class Board {
 
     private boolean canMoveBoxUp(MoveElement nearbyBox) {
         int yAfterMove = nearbyBox.y - 1;
-        return isOnBoard("y", yAfterMove) && !isBoxPosition(nearbyBox.x, yAfterMove);
+        return isOnBoard("y", yAfterMove) && !isBoxPosition(nearbyBox.x, yAfterMove) && !isWallPosition(nearbyBox.x, yAfterMove);
     }
 
     public void movePlayerDown() {
@@ -170,7 +189,7 @@ public class Board {
             if (isBoxPosition(player.x, yAfterMove)) {
                 MoveElement nearbyBox = getBoxByPosition(player.x, yAfterMove);
                 movePlayerDownWithBox(nearbyBox);
-            } else {
+            } else if (!isWallPosition(player.x, yAfterMove)) {
                 player.moveDown();
             }
         }
@@ -185,13 +204,11 @@ public class Board {
 
     private boolean canMoveBoxDown(MoveElement nearbyBox) {
         int yAfterMove = nearbyBox.y + 1;
-        return isOnBoard("y", yAfterMove) && !isBoxPosition(nearbyBox.x, yAfterMove);
+        return isOnBoard("y", yAfterMove) && !isBoxPosition(nearbyBox.x, yAfterMove) && !isWallPosition(nearbyBox.x, yAfterMove);
     }
 
-    private boolean isOnBoard(String axis, int value)
-    {
-        if (axis.equals("x"))
-        {
+    private boolean isOnBoard(String axis, int value) {
+        if (axis.equals("x")) {
             return value > -1 && value < width;
         } else if (axis.equals("y")) {
             return value > -1 && value < height;
@@ -201,7 +218,7 @@ public class Board {
 
     public void saveCleanState() {
         try {
-            cleanState = (Board)this.clone();
+            cleanState = (Board) this.clone();
         } catch (CloneNotSupportedException ex) {
             ex.printStackTrace();
         }

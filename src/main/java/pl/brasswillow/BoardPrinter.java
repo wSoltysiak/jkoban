@@ -2,7 +2,6 @@ package pl.brasswillow;
 
 import java.util.HashMap;
 import java.util.StringJoiner;
-import java.util.stream.Collector;
 
 public class BoardPrinter {
     private Board board;

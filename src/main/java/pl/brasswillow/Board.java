@@ -113,98 +113,71 @@ public class Board {
 
     public void movePlayerLeft() {
         int xAfterMove = player.x - 1;
-        if (isOnBoard("x", xAfterMove)) {
-            if (isBoxPosition(xAfterMove, player.y)) {
-                MoveElement nearbyBox = getBoxByPosition(xAfterMove, player.y);
-                movePlayerLeftWithBox(nearbyBox);
-            } else if (!isWallPosition(xAfterMove, player.y)) {
-                player.moveLeft();
-            }
-        }
-    }
-
-    private void movePlayerLeftWithBox(MoveElement nearbyBox) {
-        if (canMoveBoxLeft(nearbyBox)) {
-            nearbyBox.moveLeft();
+        moveBoxLeft(xAfterMove);
+        if (canMove(xAfterMove, player.y)) {
             player.moveLeft();
         }
     }
 
-    private boolean canMoveBoxLeft(MoveElement nearbyBox) {
-        int xAfterMove = nearbyBox.x - 1;
-        return isOnBoard("x", xAfterMove) && !isBoxPosition(xAfterMove, nearbyBox.y) && !isWallPosition(xAfterMove, nearbyBox.y);
+    private void moveBoxLeft(int xAfterMove) {
+        MoveElement nearbyBox = getBoxByPosition(xAfterMove, player.y);
+        int xAfterMoveBox = nearbyBox.x - 1;
+        if (canMove(xAfterMoveBox, nearbyBox.y)) {
+            nearbyBox.moveLeft();
+        }
     }
 
     public void movePlayerRight() {
         int xAfterMove = player.x + 1;
-        if (isOnBoard("x", xAfterMove)) {
-            if (isBoxPosition(xAfterMove, player.y)) {
-                MoveElement nearbyBox = getBoxByPosition(xAfterMove, player.y);
-                movePlayerRightWithBox(nearbyBox);
-            } else if (!isWallPosition(xAfterMove, player.y)){
-                player.moveRight();
-            }
-        }
-    }
-
-    private void movePlayerRightWithBox(MoveElement nearbyBox) {
-        if (canMoveBoxRight(nearbyBox)) {
-            nearbyBox.moveRight();
+        moveBoxRight(xAfterMove);
+        if (canMove(xAfterMove, player.y)) {
             player.moveRight();
         }
     }
 
-    private boolean canMoveBoxRight(MoveElement nearbyBox) {
-        int xAfterMove = nearbyBox.x + 1;
-        return isOnBoard("x", xAfterMove) && !isBoxPosition(xAfterMove, nearbyBox.y) && !isWallPosition(xAfterMove, nearbyBox.y);
+    private void moveBoxRight(int xAfterMove) {
+        MoveElement nearbyBox = getBoxByPosition(xAfterMove, player.y);
+        int xAfterMoveBox = nearbyBox.x + 1;
+        if (canMove(xAfterMoveBox, nearbyBox.y)) {
+            nearbyBox.moveRight();
+        }
     }
 
     public void movePlayerUp() {
         int yAfterMove = player.y - 1;
-        if (isOnBoard("y", yAfterMove)) {
-            if (isBoxPosition(player.x, yAfterMove)) {
-                MoveElement nearbyBox = getBoxByPosition(player.x, yAfterMove);
-                movePlayerUpWithBox(nearbyBox);
-            } else if (!isWallPosition(player.x, yAfterMove)) {
-                player.moveUp();
-            }
-        }
-    }
-
-    private void movePlayerUpWithBox(MoveElement nearbyBox) {
-        if (canMoveBoxUp(nearbyBox)) {
-            nearbyBox.moveUp();
+        moveBoxUp(yAfterMove);
+        if (canMove(player.x, yAfterMove)) {
             player.moveUp();
         }
     }
 
-    private boolean canMoveBoxUp(MoveElement nearbyBox) {
-        int yAfterMove = nearbyBox.y - 1;
-        return isOnBoard("y", yAfterMove) && !isBoxPosition(nearbyBox.x, yAfterMove) && !isWallPosition(nearbyBox.x, yAfterMove);
+    private void moveBoxUp(int yAfterMove) {
+        MoveElement nearbyBox = getBoxByPosition(player.x, yAfterMove);
+        int yAfterMoveBox = nearbyBox.y - 1;
+        if (canMove(nearbyBox.x, yAfterMoveBox)) {
+            nearbyBox.moveUp();
+        }
     }
 
     public void movePlayerDown() {
         int yAfterMove = player.y + 1;
-        if (yAfterMove != this.height) {
-            if (isBoxPosition(player.x, yAfterMove)) {
-                MoveElement nearbyBox = getBoxByPosition(player.x, yAfterMove);
-                movePlayerDownWithBox(nearbyBox);
-            } else if (!isWallPosition(player.x, yAfterMove)) {
-                player.moveDown();
-            }
-        }
-    }
-
-    private void movePlayerDownWithBox(MoveElement nearbyBox) {
-        if (canMoveBoxDown(nearbyBox)) {
-            nearbyBox.moveDown();
+        moveBoxDown(yAfterMove);
+        if (canMove(player.x, yAfterMove)) {
             player.moveDown();
         }
     }
 
-    private boolean canMoveBoxDown(MoveElement nearbyBox) {
-        int yAfterMove = nearbyBox.y + 1;
-        return isOnBoard("y", yAfterMove) && !isBoxPosition(nearbyBox.x, yAfterMove) && !isWallPosition(nearbyBox.x, yAfterMove);
+    private void moveBoxDown(int yAfterMove) {
+        MoveElement nearbyBox = getBoxByPosition(player.x, yAfterMove);
+        int yAfterMoveBox = nearbyBox.y + 1;
+        if (canMove(nearbyBox.x, yAfterMoveBox)) {
+            nearbyBox.moveDown();
+        }
+    }
+
+    private boolean canMove(int xAfterMove, int yAfterMove) {
+        return isOnBoard("x", xAfterMove) && isOnBoard("y", yAfterMove)
+                && !isWallPosition(xAfterMove, yAfterMove) && !isBoxPosition(xAfterMove, yAfterMove);
     }
 
     private boolean isOnBoard(String axis, int value) {

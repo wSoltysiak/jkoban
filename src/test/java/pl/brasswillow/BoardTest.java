@@ -281,7 +281,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveBoxInLeftWhenIsBoxAfterBox() {
         // given
-        cut = new Board(4, 0)
+        cut = new Board(4, 1)
                 .putPlayer(3, 0)
                 .putBox(2, 0)
                 .putBox(1, 0);
@@ -298,7 +298,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveBoxInRightWhenIsBoxAfterBox() {
         // given
-        cut = new Board(4, 0)
+        cut = new Board(4, 1)
                 .putPlayer(0, 0)
                 .putBox(1, 0)
                 .putBox(2, 0);
@@ -315,7 +315,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveBoxInUpWhenIsBoxAfterBox() {
         // given
-        cut = new Board(0, 4)
+        cut = new Board(1, 4)
                 .putPlayer(0, 3)
                 .putBox(0, 2)
                 .putBox(0, 1);
@@ -332,7 +332,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveBoxInDownWhenIsBoxAfterBox() {
         // given
-        cut = new Board(0, 4)
+        cut = new Board(1, 4)
                 .putPlayer(0, 0)
                 .putBox(0, 1)
                 .putBox(0, 2);
@@ -349,7 +349,7 @@ public class BoardTest {
     @Test
     public void boardShouldReset() {
         // given
-        cut = new Board(0, 3)
+        cut = new Board(1, 3)
                 .putPlayer(0, 0)
                 .putBox(0, 1)
                 .putStorage(0, 2);
@@ -368,7 +368,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveLeftWhenWallOnLeft() {
         // given
-        cut = new Board(2, 0)
+        cut = new Board(2, 1)
                 .putPlayer(1, 0)
                 .putWall(0, 0);
 
@@ -383,7 +383,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveLeftWithBoxWhenWallAfterBox() {
         // given
-        cut = new Board(3, 0)
+        cut = new Board(3, 1)
                 .putPlayer(2, 0)
                 .putBox(1, 0)
                 .putWall(0, 0);
@@ -400,7 +400,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveRightWhenWallOnRight() {
         // given
-        cut = new Board(2, 0)
+        cut = new Board(2, 1)
                 .putPlayer(0, 0)
                 .putWall(1, 0);
 
@@ -415,7 +415,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveRightWithBoxWhenWallAfterBox() {
         // given
-        cut = new Board(3, 0)
+        cut = new Board(3, 1)
                 .putPlayer(0, 0)
                 .putBox(1, 0)
                 .putWall(2, 0);
@@ -432,7 +432,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveUpWhenWallUp() {
         // given
-        cut = new Board(0, 2)
+        cut = new Board(1, 2)
                 .putPlayer(0, 1)
                 .putWall(0, 0);
 
@@ -447,7 +447,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveUpWithBoxWhenWallAfterBox() {
         // given
-        cut = new Board(0, 3)
+        cut = new Board(1, 3)
                 .putPlayer(0, 2)
                 .putBox(0, 1)
                 .putWall(0, 0);
@@ -464,7 +464,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveDownWhenWallDown() {
         // given
-        cut = new Board(0, 2)
+        cut = new Board(1, 2)
                 .putPlayer(0, 0)
                 .putWall(0, 1);
 
@@ -479,7 +479,7 @@ public class BoardTest {
     @Test
     public void playerShouldNotMoveDownWithBoxWhenWallAfterBox() {
         // given
-        cut = new Board(0, 3)
+        cut = new Board(1, 3)
                 .putPlayer(0, 0)
                 .putBox(0, 1)
                 .putWall(0, 2);

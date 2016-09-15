@@ -66,7 +66,7 @@ public class CommandProcessorTest {
     @Test
     public void boardShouldReset() {
         // given
-        Board board = new Board(0, 3)
+        Board board = new Board(1, 3)
                 .putPlayer(0, 0)
                 .putBox(0, 1)
                 .putStorage(0, 2);
@@ -86,7 +86,7 @@ public class CommandProcessorTest {
     @Test
     public void boardShouldNotReset() {
         // given
-        Board board = new Board(0, 3)
+        Board board = new Board(1, 3)
                 .putPlayer(0, 0)
                 .putBox(0, 1)
                 .putStorage(0, 2);

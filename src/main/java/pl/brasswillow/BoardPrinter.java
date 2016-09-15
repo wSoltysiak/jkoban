@@ -1,12 +1,26 @@
 package pl.brasswillow;
 
+import java.util.HashMap;
 import java.util.StringJoiner;
+import java.util.stream.Collector;
 
 public class BoardPrinter {
     private Board board;
+    private HashMap<String, String> characters;
 
     BoardPrinter(Board board) {
         this.board = board;
+        characters = new HashMap<>();
+        fillCharactersMap();
+    }
+
+    private void fillCharactersMap() {
+        characters.put("player", "@");
+        characters.put("box", "o");
+        characters.put("storage", ".");
+        characters.put("doneBox", "*");
+        characters.put("floor", " ");
+        characters.put("wall", "#");
     }
 
     public String getBoardString() {
@@ -23,30 +37,32 @@ public class BoardPrinter {
         String hLine = "";
         for (int x = 0; x < board.getWidth(); x++) {
             if (board.isPlayerPosition(x, y)) {
-                hLine += "@";
+                hLine += characters.get("player");
                 continue;
             }
             if (board.isBoxPosition(x, y) && board.isStoragePosition(x, y)) {
-                hLine += "*";
+                hLine += characters.get("doneBox");
                 continue;
             }
             if (board.isBoxPosition(x, y)) {
-                hLine += "o";
+                hLine += characters.get("box");
                 continue;
             }
             if (board.isStoragePosition(x, y)) {
-                hLine += ".";
+                hLine += characters.get("storage");
                 continue;
             }
-            hLine += " ";
+            hLine += characters.get("floor");
         }
-        return "#" + hLine + "#";
+        return characters.get("wall") + hLine + characters.get("wall");
     }
 
     private String getHorizontalBorder() {
-        String hBorder = "##";
-        for (int i = 0; i < board.getWidth(); i++) {
-            hBorder += "#";
+        int borderLength = 2;
+        String hBorder = "";
+        int printBoardLength = board.getWidth() + borderLength;
+        for (int i = 0; i < printBoardLength; i++) {
+            hBorder += characters.get("wall");
         }
         return hBorder;
     }

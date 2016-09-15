@@ -1,6 +1,7 @@
 package pl.brasswillow;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class JKoban {
     private Board board;
@@ -14,13 +15,47 @@ public class JKoban {
     }
 
     public static void main(String[] args) {
-        Board board = new Board(3, 1)
-                .putPlayer(0, 0)
-                .putBox(1, 0)
-                .putStorage(2, 0);
+        Board board = new Board(7, 7)
+                .putWall(0, 0)
+                .putWall(0, 1)
+                .putWall(0, 2)
+                .putWall(0, 3)
+                .putWall(6, 2)
+                .putWall(6, 3)
+                .putWall(3, 3)
+                .putWall(3, 4)
+                .putWall(3, 5)
+                .putWall(3, 6)
+                .putWall(4, 0)
+                .putWall(4, 1)
+                .putWall(4, 3)
+                .putWall(5, 0)
+                .putWall(5, 3)
+                .putWall(5, 4)
+                .putWall(5, 5)
+                .putWall(6, 0)
+                .putWall(6, 5)
+                .putStorage(6, 2)
+                .putStorage(6, 3)
+                .putStorage(6, 4)
+                .putBox(1, 4)
+                .putBox(1, 5)
+                .putBox(2, 5)
+                .putPlayer(0, 6);
         board.saveCleanState();
         JKoban jKoban = new JKoban(board);
-        jKoban.printBoard();
+        jKoban.gameLoop();
+    }
+
+    private void gameLoop() {
+        Scanner scanInput = new Scanner(System.in);
+        while (!isGameOver()) {
+            printBoard();
+            System.out.println("Command: ");
+            commandProcessor.process(scanInput.nextLine());
+            System.out.println();
+        }
+        System.out.println("You win!");
     }
 
     private void printBoard() {

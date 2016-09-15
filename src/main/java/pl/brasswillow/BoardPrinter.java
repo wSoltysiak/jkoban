@@ -52,12 +52,12 @@ public class BoardPrinter {
                 continue;
             }
             if (board.isWallPosition(x, y)) {
-                hLine = characters.get("wall");
+                hLine += characters.get("wall");
                 continue;
             }
             hLine += characters.get("floor");
         }
-        return characters.get("wall") + hLine + characters.get("wall");
+        return characters.get("wall") +  hLine + characters.get("wall");
     }
 
     private String getHorizontalBorder() {

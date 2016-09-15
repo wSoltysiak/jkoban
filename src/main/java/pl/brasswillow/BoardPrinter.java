@@ -1,6 +1,5 @@
 package pl.brasswillow;
 
-import java.io.PrintStream;
 import java.util.StringJoiner;
 
 public class BoardPrinter {
@@ -25,6 +24,10 @@ public class BoardPrinter {
         for (int x = 0; x < board.getWidth(); x++) {
             if (board.isPlayerPosition(x, y)) {
                 hLine += "@";
+                continue;
+            }
+            if (board.isBoxPosition(x, y) && board.isStoragePosition(x, y)) {
+                hLine += "*";
                 continue;
             }
             if (board.isBoxPosition(x, y)) {

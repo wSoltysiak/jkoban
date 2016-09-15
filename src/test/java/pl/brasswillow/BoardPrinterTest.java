@@ -41,6 +41,12 @@ public class BoardPrinterTest {
                     "#..#\n" +
                     "####";
 
+    private static final String BOARD_WITH_DONE_BOX_0_0 =
+            "" +
+                    "###\n" +
+                    "#*#\n" +
+                    "###";
+
     private BoardPrinter cut;
 
     @Test
@@ -143,5 +149,20 @@ public class BoardPrinterTest {
 
         // then
         assertThat(boardResult).isEqualTo(BOARD_WITH_PLAYER_0_0);
+    }
+
+    @Test
+    public void shouldPrintBoardWithDoneBoxOn_0_0_WhenBoxIsInStorage() {
+        // given
+        Board board = new Board(1, 1)
+                .putBox(0, 0)
+                .putStorage(0, 0);
+        cut = new BoardPrinter(board);
+
+        // when
+        String boardResult = cut.getBoardString();
+
+        // then
+        assertThat(boardResult).isEqualTo(BOARD_WITH_DONE_BOX_0_0);
     }
 }

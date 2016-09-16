@@ -1,5 +1,9 @@
 package pl.brasswillow;
 
+import org.glassfish.tyrus.server.Server;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -44,7 +48,21 @@ public class JKoban {
                 .putPlayer(0, 6);
         board.saveCleanState();
         JKoban jKoban = new JKoban(board);
-        jKoban.gameLoop();
+        jKoban.runServer();
+    }
+
+    private void runServer() {
+        Server server = new Server("localhost", 8025, "/jkoban", JKobanServer.class);
+        try {
+            server.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("Press key to stop the server.");
+            reader.readLine();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            server.stop();
+        }
     }
 
     private void gameLoop() {

@@ -105,4 +105,18 @@ public class CommandProcessorTest {
         assertThat(board.isStoragePosition(0, 2)).isTrue();
         assertThat(board.isWallPosition(0, 4)).isTrue();
     }
+
+    @Test
+    public void shouldIgnoreWrongCommand() {
+        // given
+        Board board = new Board(1,1)
+                .putPlayer(0, 0);
+        cut = new CommandProcessor(board);
+
+        // when
+        cut.process("wrongCommand");
+
+        // then
+        assertThat(board.isPlayerPosition(0, 0)).isTrue();
+    }
 }

@@ -21,6 +21,8 @@ public class CommandProcessor {
     }
 
     public void process(String command) {
-        methods.get(command).run();
+        if (methods.containsKey(command)) {
+            methods.get(command).run();
+        }
     }
 }
